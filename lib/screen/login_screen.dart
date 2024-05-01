@@ -17,14 +17,14 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             SizedBox(width: 96.w, height: 100.h),
             Center(
-              child: Image.asset('images/logo.png'),
+              child: Image.asset("images/logo"),
             ),
             SizedBox(height: 120.h),
             Textfield(email, Icons.email, 'Email', email_F),
