@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  final VoidCallback show;
+  LoginScreen(this.show, {super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -24,7 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             SizedBox(width: 96.w, height: 100.h),
             Center(
-              child: Image.asset("images/logo"),
+              child: Image.asset("images/logo.png"),
             ),
             SizedBox(height: 120.h),
             Textfield(email, Icons.email, 'Email', email_F),
@@ -36,13 +38,6 @@ class _LoginScreenState extends State<LoginScreen> {
             Login(),
             SizedBox(height: 10.h),
             Have(),
-            Text(
-              "Signup ",
-              style: TextStyle(
-                  fontSize: 15.sp,
-                  color: Colors.blue,
-                  fontWeight: FontWeight.bold),
-            ),
           ],
         ),
       ),
@@ -60,6 +55,16 @@ class _LoginScreenState extends State<LoginScreen> {
             style: TextStyle(
               fontSize: 13.sp,
               color: Colors.grey,
+            ),
+          ),
+          GestureDetector(
+            onTap: widget.show,
+            child: Text(
+              "Sign up ",
+              style: TextStyle(
+                  fontSize: 15.sp,
+                  color: Colors.blue,
+                  fontWeight: FontWeight.bold),
             ),
           ),
         ],
@@ -115,17 +120,22 @@ class _LoginScreenState extends State<LoginScreen> {
           controller: controller,
           focusNode: focusNode,
           decoration: InputDecoration(
-              hintText: type,
-              prefixIcon: Icon(
-                icon,
-                color: focusNode.hasFocus ? Colors.black : Colors.grey,
-              ),
-              contentPadding:
-                  EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(5.r),
-                borderSide: BorderSide(color: Colors.black, width: 2.w),
-              )),
+            hintText: type,
+            prefixIcon: Icon(
+              icon,
+              color: focusNode.hasFocus ? Colors.black : Colors.grey,
+            ),
+            contentPadding:
+                EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5.r),
+              borderSide: BorderSide(color: Colors.black, width: 2.w),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5.r),
+              borderSide: BorderSide(color: Colors.black, width: 2.w),
+            ),
+          ),
         ),
       ),
     );
