@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gibibooks/screen/login_screen.dart';
-import 'package:gibibooks/screen/signup_screen.dart';
+import 'package:gibibooks/screen/signup.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});

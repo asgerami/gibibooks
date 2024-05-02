@@ -1,5 +1,9 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gibibooks/util/exeption.dart';
+import 'package:gibibooks/data/firebase_service/firebase_auth.dart';
+import 'package:gibibooks/util/dialog.dart';
 
 class SignupScreen extends StatefulWidget {
   final VoidCallback show;
@@ -52,7 +56,7 @@ class _SignupScreenState extends State<SignupScreen> {
             Textfield(passwordConfirm, Icons.lock, 'Confirm Password',
                 passwordConfirm_F),
             SizedBox(height: 20.h),
-            Login(),
+            signup(),
             SizedBox(height: 10.h),
             Have(),
           ],
@@ -89,23 +93,39 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
-  Widget Login() {
+  Widget signup() {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.w),
-      child: Container(
-        alignment: Alignment.center,
-        width: double.infinity,
-        height: 44.h,
-        decoration: BoxDecoration(
-          color: const Color.fromRGBO(94, 23, 235, 1),
-          borderRadius: BorderRadius.circular(10.r),
-        ),
-        child: Text(
-          'Sign up',
-          style: TextStyle(
-              fontSize: 23.sp,
-              color: Colors.white,
-              fontWeight: FontWeight.bold),
+      child: InkWell(
+        onTap: () async {
+          try {
+            await Authentication().Signup(
+              email: email.text,
+              password: password.text,
+              passwordConfirm: passwordConfirm.text,
+              username: username.text,
+              Bio: Bio.text,
+              profile: File(''),
+            );
+          } on exceptions catch (e) {
+            dialogBuilder(context, e.message);
+          }
+        },
+        child: Container(
+          alignment: Alignment.center,
+          width: double.infinity,
+          height: 44.h,
+          decoration: BoxDecoration(
+            color: const Color.fromRGBO(94, 23, 235, 1),
+            borderRadius: BorderRadius.circular(10.r),
+          ),
+          child: Text(
+            'Sign up',
+            style: TextStyle(
+                fontSize: 23.sp,
+                color: Colors.white,
+                fontWeight: FontWeight.bold),
+          ),
         ),
       ),
     );

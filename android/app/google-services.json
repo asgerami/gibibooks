@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "194553155139",
+    "project_id": "gibibook-22974",
+    "storage_bucket": "gibibook-22974.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:194553155139:android:ea9d2de622a5dcb6db0ef6",
+        "android_client_info": {
+          "package_name": "com.example.gibibooks"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-YMiGeEZ79C9Xz0EC9nzjQkDg9CElkmg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
