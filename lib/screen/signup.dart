@@ -56,7 +56,7 @@ class _SignupScreenState extends State<SignupScreen> {
             Textfield(passwordConfirm, Icons.lock, 'Confirm Password',
                 passwordConfirm_F),
             SizedBox(height: 20.h),
-            signup(),
+            Signup(),
             SizedBox(height: 10.h),
             Have(),
           ],
@@ -93,7 +93,7 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
-  Widget signup() {
+  Widget Signup() {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.w),
       child: InkWell(
