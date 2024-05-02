@@ -63,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
               "Sign up ",
               style: TextStyle(
                   fontSize: 15.sp,
-                  color: Colors.blue,
+                  color: const Color.fromRGBO(94, 23, 235, 1),
                   fontWeight: FontWeight.bold),
             ),
           ),
@@ -80,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
         width: double.infinity,
         height: 44.h,
         decoration: BoxDecoration(
-          color: const Color.fromRGBO(0, 33, 243, 04),
+          color: const Color.fromRGBO(94, 23, 235, 1),
           borderRadius: BorderRadius.circular(10.r),
         ),
         child: Text(
@@ -100,7 +100,9 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Text(
         'Forgot your Password?',
         style: TextStyle(
-            fontSize: 13.sp, color: Colors.blue, fontWeight: FontWeight.bold),
+            fontSize: 13.sp,
+            color: const Color.fromRGBO(94, 23, 235, 1),
+            fontWeight: FontWeight.bold),
       ),
     );
   }

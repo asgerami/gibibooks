@@ -80,7 +80,7 @@ class _SignupScreenState extends State<SignupScreen> {
               "Login ",
               style: TextStyle(
                   fontSize: 15.sp,
-                  color: Colors.blue,
+                  color: const Color.fromRGBO(94, 23, 235, 1),
                   fontWeight: FontWeight.bold),
             ),
           ),
@@ -97,7 +97,7 @@ class _SignupScreenState extends State<SignupScreen> {
         width: double.infinity,
         height: 44.h,
         decoration: BoxDecoration(
-          color: const Color.fromRGBO(0, 33, 243, 04),
+          color: const Color.fromRGBO(94, 23, 235, 1),
           borderRadius: BorderRadius.circular(10.r),
         ),
         child: Text(
