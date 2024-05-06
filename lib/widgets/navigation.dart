@@ -39,7 +39,7 @@ class _Navigation_ScreenState extends State<Navigation_Screen> {
       bottomNavigationBar: Container(
         child: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          selectedItemColor: Color.fromRGBO(94, 23, 235, 1),
+          selectedItemColor: const Color.fromRGBO(94, 23, 235, 1),
           unselectedItemColor: Colors.grey,
           currentIndex: _currentIndex,
           onTap: navigationTapped,
