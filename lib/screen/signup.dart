@@ -5,7 +5,6 @@ import 'package:gibibooks/util/exeption.dart';
 import 'package:gibibooks/data/firebase_service/firebase_auth.dart';
 import 'package:gibibooks/util/dialog.dart';
 import 'package:gibibooks/util/imagepicker.dart';
-import 'package:image_picker/image_picker.dart';
 
 class SignupScreen extends StatefulWidget {
   final VoidCallback show;

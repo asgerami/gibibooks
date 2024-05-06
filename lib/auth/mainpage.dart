@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gibibooks/auth/auth_screen.dart';
-import 'package:gibibooks/screen/home.dart';
 import 'package:gibibooks/widgets/navigation.dart';
 
 class MainPage extends StatelessWidget {
