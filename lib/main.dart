@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gibibooks/auth/auth_screen.dart';
+import 'package:gibibooks/auth/mainpage.dart';
 import 'package:gibibooks/firebase_options.dart';
 
 void main() async {
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ScreenUtilInit(designSize: Size(375, 812), child: AuthPage()),
+      home: ScreenUtilInit(designSize: Size(375, 812), child: MainPage()),
     );
   }
 }
