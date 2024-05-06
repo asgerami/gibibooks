@@ -1,11 +1,23 @@
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:gibibooks/data/firebase_service/firestore.dart';
 import 'package:gibibooks/data/firebase_service/storage.dart';
 import 'package:gibibooks/util/exeption.dart';
 
 class Authentication {
   FirebaseAuth _auth = FirebaseAuth.instance;
+  Future<void> Login({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      await _auth.signInWithEmailAndPassword(
+          email: email.trim(), password: password.trim());
+    } on FirebaseException catch (e) {
+      throw exceptions(e.message.toString());
+    }
+  }
 
   Future<void> Signup({
     required String email,

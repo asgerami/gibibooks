@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gibibooks/data/firebase_service/firebase_auth.dart';
 
 class LoginScreen extends StatefulWidget {
   final VoidCallback show;
@@ -75,20 +76,25 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget Login() {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.w),
-      child: Container(
-        alignment: Alignment.center,
-        width: double.infinity,
-        height: 44.h,
-        decoration: BoxDecoration(
-          color: const Color.fromRGBO(94, 23, 235, 1),
-          borderRadius: BorderRadius.circular(10.r),
-        ),
-        child: Text(
-          'Login',
-          style: TextStyle(
-              fontSize: 23.sp,
-              color: Colors.white,
-              fontWeight: FontWeight.bold),
+      child: InkWell(
+        onTap: () {
+          Authentication().Login(email: email.text, password: password.text);
+        },
+        child: Container(
+          alignment: Alignment.center,
+          width: double.infinity,
+          height: 44.h,
+          decoration: BoxDecoration(
+            color: const Color.fromRGBO(94, 23, 235, 1),
+            borderRadius: BorderRadius.circular(10.r),
+          ),
+          child: Text(
+            'Login',
+            style: TextStyle(
+                fontSize: 23.sp,
+                color: Colors.white,
+                fontWeight: FontWeight.bold),
+          ),
         ),
       ),
     );

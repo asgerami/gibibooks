@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gibibooks/util/exeption.dart';
 import 'package:gibibooks/data/firebase_service/firebase_auth.dart';
 import 'package:gibibooks/util/dialog.dart';
+import 'package:gibibooks/util/imagepicker.dart';
+import 'package:image_picker/image_picker.dart';
 
 class SignupScreen extends StatefulWidget {
   final VoidCallback show;
@@ -24,6 +26,7 @@ class _SignupScreenState extends State<SignupScreen> {
   FocusNode username_F = FocusNode();
   final passwordConfirm = TextEditingController();
   FocusNode passwordConfirm_F = FocusNode();
+  File? _imageFile;
 
   @override
   Widget build(BuildContext context) {
@@ -37,13 +40,33 @@ class _SignupScreenState extends State<SignupScreen> {
             Center(
               child: Image.asset("images/logo.png"),
             ),
-            SizedBox(height: 60.h),
-            Center(
-                child: CircleAvatar(
-              radius: 40.r,
-              backgroundColor: Colors.grey.shade200,
-              backgroundImage: const AssetImage('images/person.png'),
-            )),
+            SizedBox(width: 96, height: 70.h),
+            InkWell(
+              onTap: () async {
+                File _imagefilee = await ImagePickerr().uploadImage('gallery');
+                setState(() {
+                  _imageFile = _imagefilee;
+                });
+              },
+              child: CircleAvatar(
+                radius: 36.r,
+                backgroundColor: Colors.grey,
+                child: _imageFile == null
+                    ? CircleAvatar(
+                        radius: 34.r,
+                        backgroundImage: AssetImage('images/person.png'),
+                        backgroundColor: Colors.grey.shade200,
+                      )
+                    : CircleAvatar(
+                        radius: 34.r,
+                        backgroundImage: Image.file(
+                          _imageFile!,
+                          fit: BoxFit.cover,
+                        ).image,
+                        backgroundColor: Colors.grey.shade200,
+                      ),
+              ),
+            ),
             SizedBox(height: 50.h),
             Textfield(email, Icons.email, 'Email', email_F),
             SizedBox(height: 15.h),
@@ -105,7 +128,7 @@ class _SignupScreenState extends State<SignupScreen> {
               passwordConfirm: passwordConfirm.text,
               username: username.text,
               Bio: Bio.text,
-              profile: File(''),
+              profile: _imageFile ?? File(''),
             );
           } on exceptions catch (e) {
             dialogBuilder(context, e.message);

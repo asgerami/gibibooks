@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:gibibooks/screen/login_screen.dart';
 import 'package:gibibooks/screen/signup.dart';
 
-class AuthPage extends StatefulWidget {
-  const AuthPage({super.key});
+class AuthScreen extends StatefulWidget {
+  const AuthScreen({super.key});
 
   @override
-  State<AuthPage> createState() => _AuthPageState();
+  State<AuthScreen> createState() => _AuthScreenState();
 }
 
-class _AuthPageState extends State<AuthPage> {
+class _AuthScreenState extends State<AuthScreen> {
   bool a = true;
   void go() {
     setState(() {
