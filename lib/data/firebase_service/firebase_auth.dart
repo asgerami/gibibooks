@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:gibibooks/data/firebase_service/firestore.dart';
+import 'package:gibibooks/data/firebase_service/firestor.dart';
 import 'package:gibibooks/data/firebase_service/storage.dart';
 import 'package:gibibooks/util/exeption.dart';
 
@@ -21,9 +21,9 @@ class Authentication {
   Future<void> Signup({
     required String email,
     required String password,
-    required String passwordConfirm,
+    required String passwordConfirme,
     required String username,
-    required String Bio,
+    required String bio,
     required File profile,
   }) async {
     String URL;
@@ -31,30 +31,34 @@ class Authentication {
       if (email.isNotEmpty &&
           password.isNotEmpty &&
           username.isNotEmpty &&
-          Bio.isNotEmpty) {
-        if (password == passwordConfirm) {
+          bio.isNotEmpty) {
+        if (password == passwordConfirme) {
+          // create user with email and password
           await _auth.createUserWithEmailAndPassword(
-              email: email.trim(), password: password.trim());
+            email: email.trim(),
+            password: password.trim(),
+          );
+          // upload profile image on storage
 
-          // upload profile pic to storage
           if (profile != File('')) {
-            URL = await StorageMethod()
-                .uploadImageToStorage('Profile Picture', profile);
+            URL =
+                await StorageMethod().uploadImageToStorage('Profile', profile);
           } else {
             URL = '';
           }
 
-          //get info with firestore
-          await Firebase_Firestore().CreateUser(
+          // get information with firestor
+
+          await Firebase_Firestor().CreateUser(
             email: email,
             username: username,
-            Bio: Bio,
+            bio: bio,
             profile: URL == ''
-                ? 'https://firebasestorage.googleapis.com/v0/b/gibibook-22974.appspot.com/o/person.png?alt=media&token=bbe58ed1-4b00-4e75-9f0b-7ab652eb0e3b'
+                ? 'https://firebasestorage.googleapis.com/v0/b/instagram-8a227.appspot.com/o/person.png?alt=media&token=c6fcbe9d-f502-4aa1-8b4b-ec37339e78ab'
                 : URL,
           );
         } else {
-          throw exceptions('password and confirm password should be the same!');
+          throw exceptions('password and confirm password should be same');
         }
       } else {
         throw exceptions('enter all the fields');
