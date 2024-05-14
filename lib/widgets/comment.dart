@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:gibibooks/data/firebase_service/firestor.dart';
 import 'package:gibibooks/util/image_cached.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:date_format/date_format.dart';
+
 
 class Comment extends StatefulWidget {
   String type;
@@ -13,6 +17,7 @@ class Comment extends StatefulWidget {
 
 class _CommentState extends State<Comment> {
   final comment = TextEditingController();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   bool islodaing = false;
   @override
   Widget build(BuildContext context) {
@@ -32,8 +37,30 @@ class _CommentState extends State<Comment> {
               child: Container(
                 width: 100.w,
                 height: 3.h,
-                color: Colors.black,
+                color: Colors.white,
               ),
+            ),
+            StreamBuilder<QuerySnapshot>(
+              stream: _firestore
+                  .collection(widget.type)
+                  .doc(widget.uid)
+                  .collection('comments')
+                  .snapshots(),
+              builder: (context, snapshot) {
+                return Padding(
+                  padding: EdgeInsets.symmetric(vertical: 20.h),
+                  child: ListView.builder(
+                    itemBuilder: (context, index) {
+                      if (!snapshot.hasData) {
+                        return CircularProgressIndicator();
+                      }
+                      return comment_item(snapshot.data!.docs[index].data());
+                    },
+                    itemCount:
+                        snapshot.data == null ? 0 : snapshot.data!.docs.length,
+                  ),
+                );
+              },
             ),
              Positioned(
               bottom: 0,
@@ -58,6 +85,40 @@ class _CommentState extends State<Comment> {
                         ),
                       ),
                     ),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          islodaing = true;
+                        });
+                        if (comment.text.isNotEmpty) {
+                          Firebase_Firestor().Comments(
+                            comment: comment.text,
+                            type: widget.type,
+                            uidd: widget.uid,
+                          );
+                        }
+                        setState(() {
+                          islodaing = false;
+                          comment.clear();
+                        });
+                      },
+                      child: islodaing
+                          ? SizedBox(
+                              width: 10.w,
+                              height: 10.h,
+                              child: const CircularProgressIndicator(),
+                            )
+                          : const Icon(Icons.send),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
                     
   Widget comment_item(final snapshot) {
     return ListTile(
