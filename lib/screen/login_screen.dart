@@ -16,30 +16,38 @@ class _LoginScreenState extends State<LoginScreen> {
   FocusNode email_F = FocusNode();
   final password = TextEditingController();
   FocusNode password_F = FocusNode();
-
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    email.dispose();
+    password.dispose();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            SizedBox(width: 96.w, height: 100.h),
-            Center(
-              child: Image.asset("images/logo.png"),
-            ),
-            SizedBox(height: 120.h),
-            Textfield(email, Icons.email, 'Email', email_F),
-            SizedBox(height: 15.h),
-            Textfield(password, Icons.lock, 'Password', password_F),
-            SizedBox(height: 10.h),
-            Forgot(),
-            SizedBox(height: 10.h),
-            Login(),
-            SizedBox(height: 10.h),
-            Have(),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(width: 96.w, height: 100.h),
+              Center(
+                child: Image.asset('images/logo.png'),
+              ),
+              SizedBox(height: 120.h),
+              Textfild(email, email_F, 'Email', Icons.email),
+              SizedBox(height: 15.h),
+              Textfild(password, password_F, 'Password', Icons.lock),
+              SizedBox(height: 15.h),
+              forget(),
+              SizedBox(height: 15.h),
+              login(),
+              SizedBox(height: 15.h),
+              Have()
+            ],
+          ),
         ),
       ),
     );
@@ -47,15 +55,15 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget Have() {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 15.w),
+      padding: EdgeInsets.symmetric(horizontal: 10.w),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Text(
-            "Don't have an account? ",
+            "Don't have account?  ",
             style: TextStyle(
-              fontSize: 13.sp,
-              color: Colors.grey,
+              fontSize: 14.sp,
+              color: Colors.black,
             ),
           ),
           GestureDetector(
@@ -73,12 +81,13 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget Login() {
+  Widget login() {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.w),
       child: InkWell(
-        onTap: () {
-          Authentication().Login(email: email.text, password: password.text);
+        onTap: () async {
+          await Authentication()
+              .Login(email: email.text, password: password.text);
         },
         child: Container(
           alignment: Alignment.center,
@@ -91,30 +100,35 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Text(
             'Login',
             style: TextStyle(
-                fontSize: 23.sp,
-                color: Colors.white,
-                fontWeight: FontWeight.bold),
+              fontSize: 23.sp,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget Forgot() {
+  Padding forget() {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 15.w),
-      child: Text(
-        'Forgot your Password?',
-        style: TextStyle(
+      padding: EdgeInsets.only(left: 230.w),
+      child: GestureDetector(
+        onTap: () {},
+        child: Text(
+          'Forgot password?',
+          style: TextStyle(
             fontSize: 13.sp,
             color: const Color.fromRGBO(94, 23, 235, 1),
-            fontWeight: FontWeight.bold),
+            fontWeight: FontWeight.w500,
+          ),
+        ),
       ),
     );
   }
 
-  Widget Textfield(TextEditingController controller, IconData icon, String type,
-      FocusNode focusNode) {
+  Padding Textfild(TextEditingController controll, FocusNode focusNode,
+      String typename, IconData icon) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.w),
       child: Container(
@@ -125,23 +139,29 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         child: TextField(
           style: TextStyle(fontSize: 18.sp, color: Colors.black),
-          controller: controller,
+          controller: controll,
           focusNode: focusNode,
           decoration: InputDecoration(
-            hintText: type,
+            hintText: typename,
             prefixIcon: Icon(
               icon,
-              color: focusNode.hasFocus ? Colors.black : Colors.grey,
+              color: focusNode.hasFocus ? Colors.black : Colors.grey[600],
             ),
             contentPadding:
                 EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5.r),
-              borderSide: BorderSide(color: Colors.black, width: 2.w),
+              borderSide: BorderSide(
+                width: 2.w,
+                color: Colors.grey,
+              ),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5.r),
-              borderSide: BorderSide(color: Colors.black, width: 2.w),
+              borderSide: BorderSide(
+                width: 2.w,
+                color: Colors.black,
+              ),
             ),
           ),
         ),

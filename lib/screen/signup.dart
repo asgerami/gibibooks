@@ -19,69 +19,81 @@ class _SignupScreenState extends State<SignupScreen> {
   FocusNode email_F = FocusNode();
   final password = TextEditingController();
   FocusNode password_F = FocusNode();
-  final Bio = TextEditingController();
-  FocusNode bio_F = FocusNode();
+  final passwordConfirme = TextEditingController();
+  FocusNode passwordConfirme_F = FocusNode();
   final username = TextEditingController();
   FocusNode username_F = FocusNode();
-  final passwordConfirm = TextEditingController();
-  FocusNode passwordConfirm_F = FocusNode();
+  final bio = TextEditingController();
+  FocusNode bio_F = FocusNode();
   File? _imageFile;
-
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    email.dispose();
+    password.dispose();
+    passwordConfirme.dispose();
+    username.dispose();
+    bio.dispose();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            SizedBox(width: 96.w, height: 30.h),
-            Center(
-              child: Image.asset("images/logo.png"),
-            ),
-            SizedBox(width: 96, height: 70.h),
-            InkWell(
-              onTap: () async {
-                File _imagefilee = await ImagePickerr().uploadImage('gallery');
-                setState(() {
-                  _imageFile = _imagefilee;
-                });
-              },
-              child: CircleAvatar(
-                radius: 36.r,
-                backgroundColor: Colors.grey,
-                child: _imageFile == null
-                    ? CircleAvatar(
-                        radius: 34.r,
-                        backgroundImage: AssetImage('images/person.png'),
-                        backgroundColor: Colors.grey.shade200,
-                      )
-                    : CircleAvatar(
-                        radius: 34.r,
-                        backgroundImage: Image.file(
-                          _imageFile!,
-                          fit: BoxFit.cover,
-                        ).image,
-                        backgroundColor: Colors.grey.shade200,
-                      ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(width: 96.w, height: 10.h),
+              Center(
+                child: Image.asset('images/logo.png'),
               ),
-            ),
-            SizedBox(height: 50.h),
-            Textfield(email, Icons.email, 'Email', email_F),
-            SizedBox(height: 15.h),
-            Textfield(username, Icons.person, 'Username', username_F),
-            SizedBox(height: 15.h),
-            Textfield(Bio, Icons.abc, 'Bio', bio_F),
-            SizedBox(height: 15.h),
-            Textfield(password, Icons.lock, 'Password', password_F),
-            SizedBox(height: 10.h),
-            Textfield(passwordConfirm, Icons.lock, 'Confirm Password',
-                passwordConfirm_F),
-            SizedBox(height: 20.h),
-            Signup(),
-            SizedBox(height: 10.h),
-            Have(),
-          ],
+              SizedBox(width: 96.w, height: 70.h),
+              InkWell(
+                onTap: () async {
+                  File _imagefilee =
+                      await ImagePickerr().uploadImage('gallery');
+                  setState(() {
+                    _imageFile = _imagefilee;
+                  });
+                },
+                child: CircleAvatar(
+                  radius: 36.r,
+                  backgroundColor: Colors.grey,
+                  child: _imageFile == null
+                      ? CircleAvatar(
+                          radius: 34.r,
+                          backgroundImage: AssetImage('images/person.png'),
+                          backgroundColor: Colors.grey.shade200,
+                        )
+                      : CircleAvatar(
+                          radius: 34.r,
+                          backgroundImage: Image.file(
+                            _imageFile!,
+                            fit: BoxFit.cover,
+                          ).image,
+                          backgroundColor: Colors.grey.shade200,
+                        ),
+                ),
+              ),
+              SizedBox(height: 40.h),
+              Textfild(email, email_F, 'Email', Icons.email),
+              SizedBox(height: 15.h),
+              Textfild(username, username_F, 'username', Icons.person),
+              SizedBox(height: 15.h),
+              Textfild(bio, bio_F, 'Bio', Icons.abc),
+              SizedBox(height: 15.h),
+              Textfild(password, password_F, 'Password', Icons.lock),
+              SizedBox(height: 15.h),
+              Textfild(passwordConfirme, passwordConfirme_F, 'Confirm Password',
+                  Icons.lock),
+              SizedBox(height: 15.h),
+              Signup(),
+              SizedBox(height: 15.h),
+              Have()
+            ],
+          ),
         ),
       ),
     );
@@ -89,15 +101,15 @@ class _SignupScreenState extends State<SignupScreen> {
 
   Widget Have() {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 15.w),
+      padding: EdgeInsets.symmetric(horizontal: 10.w),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Text(
-            "Already have an account? ",
+            "Already you have account?  ",
             style: TextStyle(
-              fontSize: 13.sp,
-              color: Colors.grey,
+              fontSize: 14.sp,
+              color: Colors.black,
             ),
           ),
           GestureDetector(
@@ -124,9 +136,9 @@ class _SignupScreenState extends State<SignupScreen> {
             await Authentication().Signup(
               email: email.text,
               password: password.text,
-              passwordConfirme: passwordConfirm.text,
+              passwordConfirme: passwordConfirme.text,
               username: username.text,
-              bio: Bio.text,
+              bio: bio.text,
               profile: _imageFile ?? File(''),
             );
           } on exceptions catch (e) {
@@ -144,28 +156,18 @@ class _SignupScreenState extends State<SignupScreen> {
           child: Text(
             'Sign up',
             style: TextStyle(
-                fontSize: 23.sp,
-                color: Colors.white,
-                fontWeight: FontWeight.bold),
+              fontSize: 23.sp,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget Forgot() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 15.w),
-      child: Text(
-        'Forgot your Password?',
-        style: TextStyle(
-            fontSize: 13.sp, color: Colors.blue, fontWeight: FontWeight.bold),
-      ),
-    );
-  }
-
-  Widget Textfield(TextEditingController controller, IconData icon, String type,
-      FocusNode focusNode) {
+  Padding Textfild(TextEditingController controll, FocusNode focusNode,
+      String typename, IconData icon) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.w),
       child: Container(
@@ -176,23 +178,29 @@ class _SignupScreenState extends State<SignupScreen> {
         ),
         child: TextField(
           style: TextStyle(fontSize: 18.sp, color: Colors.black),
-          controller: controller,
+          controller: controll,
           focusNode: focusNode,
           decoration: InputDecoration(
-            hintText: type,
+            hintText: typename,
             prefixIcon: Icon(
               icon,
-              color: focusNode.hasFocus ? Colors.black : Colors.grey,
+              color: focusNode.hasFocus ? Colors.black : Colors.grey[600],
             ),
             contentPadding:
                 EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5.r),
-              borderSide: BorderSide(color: Colors.black, width: 2.w),
+              borderSide: BorderSide(
+                width: 2.w,
+                color: Colors.grey,
+              ),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5.r),
-              borderSide: BorderSide(color: Colors.black, width: 2.w),
+              borderSide: BorderSide(
+                width: 2.w,
+                color: Colors.black,
+              ),
             ),
           ),
         ),

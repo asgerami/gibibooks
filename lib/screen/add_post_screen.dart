@@ -92,7 +92,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         title: const Text(
-          'New Post',
+          'New Moments',
           style: TextStyle(color: Colors.black),
         ),
         centerTitle: false,
@@ -159,16 +159,14 @@ class _AddPostScreenState extends State<AddPostScreen> {
                   width: double.infinity,
                   height: 40.h,
                   color: Colors.white,
-                  child: Row(
-                    children: [
-                      SizedBox(width: 10.w),
-                      Text(
-                        'Recent',
-                        style: TextStyle(
-                            fontSize: 15.sp, fontWeight: FontWeight.w600),
-                      ),
-                    ],
-                  ),
+                  child: Row(children: [
+                    SizedBox(width: 10.w),
+                    Text(
+                      'Recent',
+                      style: TextStyle(
+                          fontSize: 15.sp, fontWeight: FontWeight.w600),
+                    ),
+                  ]),
                 ),
                 GridView.builder(
                   shrinkWrap: true,
