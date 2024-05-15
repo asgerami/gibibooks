@@ -1,4 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:gibibooks/screen/add_screen.dart';
+import 'package:gibibooks/screen/search.dart';
+import 'package:gibibooks/screen/home.dart';
+import 'package:gibibooks/screen/profile_screen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Navigation_Screen extends StatefulWidget {
   const Navigation_Screen({super.key});
@@ -11,14 +18,17 @@ int _currentIndex = 0;
 
 class _Navigation_ScreenState extends State<Navigation_Screen> {
   late PageController pageController;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
     pageController = PageController();
   }
 
   @override
   void dispose() {
+    // TODO: implement dispose
     super.dispose();
     pageController.dispose();
   }
@@ -39,7 +49,7 @@ class _Navigation_ScreenState extends State<Navigation_Screen> {
       bottomNavigationBar: Container(
         child: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          selectedItemColor: const Color.fromRGBO(94, 23, 235, 1),
+          selectedItemColor: Colors.black,
           unselectedItemColor: Colors.grey,
           currentIndex: _currentIndex,
           onTap: navigationTapped,
@@ -53,7 +63,7 @@ class _Navigation_ScreenState extends State<Navigation_Screen> {
               label: '',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.camera),
+              icon: Icon(Icons.camera_alt),
               label: '',
             ),
             BottomNavigationBarItem(
@@ -66,7 +76,14 @@ class _Navigation_ScreenState extends State<Navigation_Screen> {
       body: PageView(
         controller: pageController,
         onPageChanged: onPageChanged,
-        children: [],
+        children: [
+          HomeScreen(),
+          ExploreScreen(),
+          AddScreen(),
+          ProfileScreen(
+            Uid: _auth.currentUser!.uid,
+          ),
+        ],
       ),
     );
   }
