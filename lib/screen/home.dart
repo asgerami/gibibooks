@@ -23,11 +23,11 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
         elevation: 0,
         title: SizedBox(
-          width: 145.w,
-          height: 34.h,
-          child: Image.asset('images/gibibook.jpg'),
+          width: 190.w,
+          height: 38.h,
+          child: Image.asset('images/logo.png'),
         ),
-        backgroundColor: const Color(0xffFAFAFA),
+        backgroundColor: Colors.white,
       ),
       body: CustomScrollView(
         slivers: [
