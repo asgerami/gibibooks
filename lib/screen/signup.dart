@@ -124,9 +124,9 @@ class _SignupScreenState extends State<SignupScreen> {
             await Authentication().Signup(
               email: email.text,
               password: password.text,
-              passwordConfirm: passwordConfirm.text,
+              passwordConfirme: passwordConfirm.text,
               username: username.text,
-              Bio: Bio.text,
+              bio: Bio.text,
               profile: _imageFile ?? File(''),
             );
           } on exceptions catch (e) {

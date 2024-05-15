@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gibibooks/screen/profile_screen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ExploreScreen extends StatefulWidget {
   const ExploreScreen({Key? key}) : super(key: key);
@@ -14,18 +14,19 @@ class _ExploreScreenState extends State<ExploreScreen> {
   final search = TextEditingController();
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   bool show = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-        backgroundColor: Colors.white,
-        body: SafeArea(
-            child: CustomScrollView(
-              slivers: [
-                SearchBox(),
-                if (!show)
-                StreamBuilder(
-                  stream: _firebaseFirestore
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: CustomScrollView(
+          slivers: [
+            SearchBox(),
+            if (!show)
+              StreamBuilder(
+                stream: _firebaseFirestore
                     .collection('users')
                     .where('username', isGreaterThanOrEqualTo: search.text)
                     .snapshots(),
@@ -86,8 +87,9 @@ class _ExploreScreenState extends State<ExploreScreen> {
       ),
     );
   }
-  SliverToBoxAdapter SearchBox(){
-    return SilverToBoxAdapter(
+
+  SliverToBoxAdapter SearchBox() {
+    return SliverToBoxAdapter(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
         child: Container(
@@ -97,8 +99,8 @@ class _ExploreScreenState extends State<ExploreScreen> {
             color: Colors.grey.shade200,
             borderRadius: BorderRadius.all(
               Radius.circular(10.0),
-                  ),
-                ),
+            ),
+          ),
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 5.0),
             child: Row(
@@ -125,7 +127,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                       hintStyle: TextStyle(color: Colors.black),
                       enabledBorder: InputBorder.none,
                       focusedBorder: InputBorder.none,
-                     ),
+                    ),
                   ),
                 ),
               ],
@@ -136,4 +138,3 @@ class _ExploreScreenState extends State<ExploreScreen> {
     );
   }
 }
-

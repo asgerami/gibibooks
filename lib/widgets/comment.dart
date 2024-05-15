@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_format/date_format.dart';
 
-
 class Comment extends StatefulWidget {
   String type;
   String uid;
@@ -62,7 +61,7 @@ class _CommentState extends State<Comment> {
                 );
               },
             ),
-             Positioned(
+            Positioned(
               bottom: 0,
               right: 0,
               left: 0,
@@ -119,7 +118,7 @@ class _CommentState extends State<Comment> {
       ),
     );
   }
-                    
+
   Widget comment_item(final snapshot) {
     return ListTile(
       leading: ClipOval(

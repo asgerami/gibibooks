@@ -68,8 +68,6 @@ class Firebase_Firestor {
     });
     return true;
   }
-}
-
 
   Future<bool> Comments({
     required String comment,
@@ -151,4 +149,3 @@ class Firebase_Firestor {
     }
   }
 }
-
