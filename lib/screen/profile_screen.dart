@@ -111,17 +111,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
 // Widget Head(Usermodel user) in ProfileScreen class
-// Widget Head(Usermodel user) in ProfileScreen class
   Widget Head(Usermodel user) {
     return Container(
       color: Colors.white,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center, // Center align items
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Profile picture as a square
           Padding(
-            padding: EdgeInsets.symmetric(
-                vertical: 20.h), // Adjust vertical padding as needed
+            padding: EdgeInsets.symmetric(vertical: 20.h),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -130,9 +127,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   height: 80.h,
                   child: CachedImage(user.profile),
                 ),
-                SizedBox(
-                    width: 10
-                        .w), // Adjust spacing between profile picture and username
+                SizedBox(width: 10.w),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -156,10 +151,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ],
             ),
           ),
-          // Post, followers, and following count centered
           Row(
-            mainAxisAlignment:
-                MainAxisAlignment.center, // Center align row items
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Column(
                 children: [
@@ -178,7 +171,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ],
               ),
-              SizedBox(width: 80.w), // Adjust spacing between counts as needed
+              SizedBox(width: 80.w),
               Column(
                 children: [
                   Text(
@@ -196,7 +189,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ],
               ),
-              SizedBox(width: 60.w), // Adjust spacing between counts as needed
+              SizedBox(width: 60.w),
               Column(
                 children: [
                   Text(
@@ -217,14 +210,41 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ],
           ),
           SizedBox(height: 20.h),
-          // Unfollow / Message buttons
+          SizedBox(height: 20.h),
+          Visibility(
+            visible: !follow && !yourse,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 13.w),
+              child: GestureDetector(
+                onTap: () {
+                  Firebase_Firestor().flollow(uid: widget.Uid);
+                  setState(() {
+                    follow = true;
+                  });
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 30.h,
+                  width: 130.w,
+                  decoration: BoxDecoration(
+                    color: const Color.fromRGBO(94, 23, 235, 1),
+                    borderRadius: BorderRadius.circular(5.r),
+                    border: Border.all(color: Colors.blue),
+                  ),
+                  child: Text(
+                    'Follow',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            ),
+          ),
           Visibility(
             visible: follow,
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 13.w),
               child: Row(
-                mainAxisAlignment:
-                    MainAxisAlignment.center, // Center align row items
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
                     child: GestureDetector(
@@ -244,23 +264,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           border: Border.all(color: Colors.grey.shade200),
                         ),
                         child: Text('Unfollow'),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 8.w),
-                  Expanded(
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: 30.h,
-                      width: 100.w,
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade200,
-                        borderRadius: BorderRadius.circular(5.r),
-                        border: Border.all(color: Colors.grey.shade200),
-                      ),
-                      child: Text(
-                        'Message',
-                        style: TextStyle(color: Colors.black),
                       ),
                     ),
                   ),
